@@ -67,19 +67,18 @@ def x0(x):
 def gn(ip):
     noise = gnapi.ip(ip)
     if noise['seen']:
-      if noise['classification'] == "malicious":
-        print(("   {darkgrey}greynoise: {red}{classification}\n   {lightcyan}{tags}".format(**c, **noise)))
-      else:
-        if 'tags' in noise:
-          print(("   {darkgrey}greynoise: {green}{classification}\n   {lightcyan}{tags}".format(**c, **noise)))
+        if noise['classification'] == "malicious":
+            print(("   {darkgrey}greynoise: {red}{classification}\n   {lightcyan}{tags}".format(**c, **noise)))
+        elif 'tags' in noise:
+            print(("   {darkgrey}greynoise: {green}{classification}\n   {lightcyan}{tags}".format(**c, **noise)))
         else:
-          print(("   {darkgrey}greynoise: {green}{classification}".format(**c, **noise)))
+            print(("   {darkgrey}greynoise: {green}{classification}".format(**c, **noise)))
 
 try:
     res = DNSDumpsterAPI().search(domain)
     gnapi = GreyNoise()
     x0(res['domain'])
-    print(" " + ip)
+    print(f" {ip}")
     gn(ip)
 
     x0("dns servers")
